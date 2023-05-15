@@ -1,6 +1,7 @@
-import React from 'react';
 import { Help, helpModel } from '../components/Help';
 import { useUnit } from 'effector-react';
+import { Progress } from '../components/Progress';
+
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   return (
     <div className="App">
       <Help />
+      <Progress />
     </div>
   );
 }
