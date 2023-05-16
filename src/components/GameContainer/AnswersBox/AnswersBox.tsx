@@ -23,6 +23,10 @@ const Answer = styled.div`
   color: white;
   font-size: 25px;
   font-weight: bold;
+  cursor: pointer;
+    :hover {
+      background-color: #00ff15;
+    }
 `
 
 interface AnswersBoxProps {

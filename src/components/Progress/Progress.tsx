@@ -6,8 +6,7 @@ import { $money } from './model'
 const Container = styled.div`
   color: white;
   background-color: black;
-  width: 200px;
-  display: block;
+  width: 160px;
   border-radius: 20px;
   border: solid 5px rgb(30, 135, 255);
   display: flex;
@@ -16,11 +15,16 @@ const Container = styled.div`
   font-weight: bold;
   flex-wrap: wrap;
   align-content: center;
+  position: absolute;
+  right: 20px;
+  top: 20px;
 `
-const Step = styled(Container)`
-  border: none;
+const Step = styled.div`
   height: 35px;
-  background-color: none;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  width: 200px;
 `
 const StepNumber = styled.p`
   margin-left: 5px;

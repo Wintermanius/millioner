@@ -9,6 +9,8 @@ const Container = styled.div`
   align-items: stretch;
   width: 100%;
   max-width: 1400px;
+  position: absolute;
+  bottom: 20px;
 `
 
 interface GameContainerProps {
