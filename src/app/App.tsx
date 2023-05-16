@@ -1,6 +1,7 @@
 import { Help, helpModel } from '../components/Help';
 import { useUnit } from 'effector-react';
 import { Progress } from '../components/Progress';
+import { GameContainer } from '../components/GameContainer';
 
 
 
@@ -13,6 +14,7 @@ function App() {
     <div className="App">
       <Help />
       <Progress />
+      <GameContainer />
     </div>
   );
 }

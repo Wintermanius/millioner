@@ -3,7 +3,7 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import { $money } from './model'
 
-const Div = styled.div`
+const Container = styled.div`
   color: white;
   background-color: black;
   width: 200px;
@@ -17,12 +17,12 @@ const Div = styled.div`
   flex-wrap: wrap;
   align-content: center;
 `
-const Step = styled(Div)`
+const Step = styled(Container)`
   border: none;
   height: 35px;
   background-color: none;
 `
-const P = styled.p`
+const StepNumber = styled.p`
   margin-left: 5px;
   margin-right: 5px;
   display: flex;
@@ -41,8 +41,8 @@ interface ProgressProps {
 export const Progress: FC<ProgressProps> = () => {
   const money = useUnit($money)
   return (
-    <Div>
-      {money.map((index, item) => <Step className='gameStep'><P>{item + 1}</P><span>{index}</span></Step>).reverse()}
-    </Div>
+    <Container>
+      {money.map((index, item) => <Step className='gameStep'><StepNumber>{item + 1}</StepNumber><span>{index}</span></Step>).reverse()}
+    </Container>
   )
 }
