@@ -37,7 +37,7 @@ export const AnswersBox: FC<AnswersBoxProps> = () => {
   const answers = useUnit($answers)
   return (
     <Container>
-      {answers.map((item) => <Answer>{item}</Answer>)}
+      {answers.map((item, index) => <Answer key={index}>{item}</Answer>)}
     </Container>
   )
 }

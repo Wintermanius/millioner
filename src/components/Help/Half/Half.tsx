@@ -9,6 +9,7 @@ const Button = styled.button<{ active: boolean }>`
   border-radius: 50%;
   color: white;
   font-size: 30px;
+  font-weight: bold;
   display: flex;
   background-color: black;
   align-items: center;

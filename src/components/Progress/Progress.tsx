@@ -1,7 +1,6 @@
-import { useUnit } from 'effector-react'
 import { FC } from 'react'
 import styled from 'styled-components'
-import { $money } from './model'
+import { money } from './model'
 
 const Container = styled.div`
   color: white;
@@ -36,10 +35,9 @@ interface ProgressProps {
 }
 
 export const Progress: FC<ProgressProps> = ({className}) => {
-  const money = useUnit($money)
   return (
-    <Container className={className}>
-      {money.map((index, item) => <Step className='gameStep'><StepNumber>{item + 1}</StepNumber><span>{index}</span></Step>).reverse()}
+    <Container className={className} >
+      {money.map((index, item) => <Step key={index} className='gameStep'><StepNumber>{item + 1}</StepNumber><span>{index}</span></Step>).reverse()}
     </Container>
   )
 }

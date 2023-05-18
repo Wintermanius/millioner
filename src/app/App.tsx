@@ -3,6 +3,9 @@ import { useUnit } from 'effector-react';
 import { Progress } from '../components/Progress';
 import { GameContainer } from '../components/GameContainer';
 import styled from 'styled-components';
+import { $questions } from '../store/store';
+import { fetchQuestionsFx } from '../store/api';
+import { useEffect } from 'react';
 
 const GameScreen = styled.div`
   display: flex;
@@ -25,8 +28,14 @@ const GameContainerStyled = styled(GameContainer)`
 
 function App() {
   const isUsedHalf = useUnit(helpModel.$isUsedHalf)
+  
+  useEffect(() => {
+    fetchQuestionsFx()
+  }, [])
 
-  console.log(isUsedHalf)
+  const questions = useUnit($questions)
+
+  console.log(questions)
 
   return (
     <GameScreen>
