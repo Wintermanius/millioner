@@ -6,9 +6,13 @@ import styled from 'styled-components'
 
 const HelpContainer = styled.div`
   display: flex;
-  position: absolute;
-  top: 20px;
-  left: 20px;
+`
+
+const StyledPeoplesHelp = styled(PeoplesHelp)`
+  margin-left: 10px;
+`
+const PhoneCallStyled = styled(PhoneCall)`
+  margin-left: 10px;
 `
 
 interface HelpProps {
@@ -17,10 +21,10 @@ interface HelpProps {
 
 export const Help: FC<HelpProps> = ({ className }) => {
   return (
-    <HelpContainer>
+    <HelpContainer className={className}>
       <Half />
-      <PhoneCall />
-      <PeoplesHelp />
+      <PhoneCallStyled />
+      <StyledPeoplesHelp />
     </HelpContainer>
   )
     

@@ -8,6 +8,20 @@ const GameScreen = styled.div`
   display: flex;
   justify-content: center;
 `
+const ProgressSyeled = styled(Progress)`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+`
+const HelpStyled = styled(Help)`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+`
+const GameContainerStyled = styled(GameContainer)`
+  position: absolute;
+  bottom: 20px;
+`
 
 function App() {
   const isUsedHalf = useUnit(helpModel.$isUsedHalf)
@@ -16,9 +30,9 @@ function App() {
 
   return (
     <GameScreen>
-      <Help />
-      <Progress />
-      <GameContainer />
+      <HelpStyled />
+      <ProgressSyeled />
+      <GameContainerStyled />
     </GameScreen>
   );
 }

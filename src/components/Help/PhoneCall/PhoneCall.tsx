@@ -6,7 +6,6 @@ import { useUnit } from 'effector-react';
 import { $isUsedPhoneCall, phoneCallEvents } from './model';
 
 const Button = styled.button<{ active: boolean }>`
-  margin-left: 10px;
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -40,10 +39,10 @@ interface PhoneCallProps {
   className?: string
 }
 
-export const PhoneCall: FC<PhoneCallProps> = () => {
+export const PhoneCall: FC<PhoneCallProps> = ({className}) => {
   const isUsedPhoneCall = useUnit($isUsedPhoneCall)
   const isUsedPhoneCallCanged = useUnit(phoneCallEvents.isUsedPhoneCallChanged)
   return (
-    <Button active={!isUsedPhoneCall} onClick={isUsedPhoneCallCanged}><Image src={!isUsedPhoneCall ? phoneActive : phoneDisactive} alt="" /></Button>
+    <Button className={className} active={!isUsedPhoneCall} onClick={isUsedPhoneCallCanged}><Image src={!isUsedPhoneCall ? phoneActive : phoneDisactive} alt="" /></Button>
   )
 }

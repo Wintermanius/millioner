@@ -9,17 +9,15 @@ const Container = styled.div`
   align-items: stretch;
   width: 100%;
   max-width: 1400px;
-  position: absolute;
-  bottom: 20px;
 `
 
 interface GameContainerProps {
   className?: string
 }
 
-export const GameContainer: FC<GameContainerProps> = () => {
+export const GameContainer: FC<GameContainerProps> = ({className}) => {
   return (
-    <Container>
+    <Container className={className}>
       <QuestionBox />
       <AnswersBox />
     </Container>

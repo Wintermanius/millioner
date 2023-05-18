@@ -6,7 +6,6 @@ import { useUnit } from 'effector-react'
 import { $isUsedPeoples, peoplesEvents } from './model'
 
 const Button = styled.button<{ active: boolean }>`
-  margin-left: 10px;
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -41,10 +40,10 @@ interface PeoplesHelpProps {
   className?: string
 }
 
-export const PeoplesHelp: FC<PeoplesHelpProps> = () => {
+export const PeoplesHelp: FC<PeoplesHelpProps> = ({ className }) => {
   const isUsedPeoples = useUnit($isUsedPeoples)
   const isUsedPeoplesChanged = useUnit(peoplesEvents.isUsedPeoplesChanged)
   return (
-    <Button active={!isUsedPeoples} onClick={isUsedPeoplesChanged}><Image src={!isUsedPeoples ? peoplesActive : peoplesDisactive} alt="" /></Button>
+    <Button className={className} active={!isUsedPeoples} onClick={isUsedPeoplesChanged}><Image src={!isUsedPeoples ? peoplesActive : peoplesDisactive} alt="" /></Button>
   )
 }

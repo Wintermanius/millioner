@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   background: radial-gradient(rgb(167, 239, 255), rgb(0, 130, 243));
   height: 1%;

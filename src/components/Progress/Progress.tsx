@@ -6,28 +6,21 @@ import { $money } from './model'
 const Container = styled.div`
   color: white;
   background-color: black;
-  width: 160px;
   border-radius: 20px;
   border: solid 5px rgb(30, 135, 255);
   display: flex;
-  align-items: center;
   font-size: 20px;
   font-weight: bold;
-  flex-wrap: wrap;
-  align-content: center;
-  position: absolute;
-  right: 20px;
-  top: 20px;
+  flex-direction: column;
+  padding: 5px;
 `
 const Step = styled.div`
   height: 35px;
   display: flex;
   align-items: center;
-  align-content: center;
-  width: 200px;
+  margin: 3px;
 `
 const StepNumber = styled.p`
-  margin-left: 5px;
   margin-right: 5px;
   display: flex;
   align-items: center;
@@ -42,10 +35,10 @@ interface ProgressProps {
   className?: string
 }
 
-export const Progress: FC<ProgressProps> = () => {
+export const Progress: FC<ProgressProps> = ({className}) => {
   const money = useUnit($money)
   return (
-    <Container>
+    <Container className={className}>
       {money.map((index, item) => <Step className='gameStep'><StepNumber>{item + 1}</StepNumber><span>{index}</span></Step>).reverse()}
     </Container>
   )
