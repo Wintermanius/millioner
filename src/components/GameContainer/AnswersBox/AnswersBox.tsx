@@ -1,7 +1,6 @@
-import { useUnit } from 'effector-react'
 import { FC } from 'react'
-import { $answers } from './model'
 import styled from 'styled-components'
+import { answers } from './model'
 
 const Container = styled.div`
   display: flex;
@@ -34,7 +33,7 @@ interface AnswersBoxProps {
 }
 
 export const AnswersBox: FC<AnswersBoxProps> = () => {
-  const answers = useUnit($answers)
+
   return (
     <Container>
       {answers.map((item, index) => <Answer key={index}>{item}</Answer>)}

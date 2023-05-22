@@ -1,6 +1,4 @@
-import { useUnit } from 'effector-react'
 import { FC } from 'react'
-import { $questions } from './model'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -20,8 +18,7 @@ interface QuestionBoxProps {
 }
 
 export const QuestionBox: FC<QuestionBoxProps> = ({ className }) => {
-  const questions = useUnit($questions)
   return (
-    <Container>{questions[0]}</Container>
+    <Container>question</Container>
   )
 }
