@@ -17,6 +17,7 @@ const Button = styled.button<{ active: boolean }>`
   justify-content: center;
   border: solid 5px rgb(255, 136, 0);
   align-items: start;
+  transition: 0.25s background-color;
   cursor: pointer;
   :hover {
       background-color: #00ff15;

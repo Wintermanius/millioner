@@ -1,2 +1,2 @@
 export * from './GameContainer'
-export * from './model'
+export * as gameContainerModel from './model'

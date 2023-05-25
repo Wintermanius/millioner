@@ -17,7 +17,6 @@ const Step = styled.div`
   height: 35px;
   display: flex;
   align-items: center;
-  margin: 3px;
 `
 const StepNumber = styled.p`
   margin-right: 5px;

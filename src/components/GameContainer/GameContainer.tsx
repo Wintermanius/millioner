@@ -3,7 +3,7 @@ import { QuestionBox } from './QuestionBox'
 import { AnswersBox } from './AnswersBox'
 import styled from 'styled-components'
 import { useUnit } from 'effector-react'
-import { $questionsData, events } from './model'
+import { $questionNumber, $questionsData, events } from './model'
 
 const Container = styled.div`
   display: flex;
@@ -20,10 +20,12 @@ interface GameContainerProps {
 export const GameContainer: FC<GameContainerProps> = ({className}) => {
 
   const mountedChanged = useUnit(events.mountedChanged)
-
+  
+  const questionNumber = useUnit($questionNumber)
   const questionsData = useUnit($questionsData)
-  const question = questionsData[1]?.question
-  console.log(question)
+
+  const questions = questionsData.map((item) => item.question)
+  const answers = questionsData.map((item) => [item.correct_answer, ...item.incorrect_answers])
  
   useEffect(() => {
     mountedChanged(true)
@@ -31,8 +33,8 @@ export const GameContainer: FC<GameContainerProps> = ({className}) => {
   
   return (
     <Container className={className}>
-      <QuestionBox />
-      <AnswersBox />
+      <QuestionBox questionNumber={questionNumber} questions={questions} />
+      <AnswersBox questionNumber={questionNumber} answers={answers} />
     </Container>
   )
 }

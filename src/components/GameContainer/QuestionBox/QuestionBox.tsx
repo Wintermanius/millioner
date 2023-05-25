@@ -6,7 +6,7 @@ const Container = styled.div`
   border-radius: 20px;
   border: solid 5px rgb(30, 135, 255);
   color: white;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   display: flex;
   justify-content: center;
@@ -15,10 +15,13 @@ const Container = styled.div`
 
 interface QuestionBoxProps {
   className?: string
+  questions: string[]
+  questionNumber: number
 }
 
-export const QuestionBox: FC<QuestionBoxProps> = ({ className }) => {
+export const QuestionBox: FC<QuestionBoxProps> = ({ questions, questionNumber }) => {
+
   return (
-    <Container>question</Container>
+    <Container>{questions[questionNumber]}</Container>
   )
 }

@@ -1,6 +1,7 @@
+import { useUnit } from 'effector-react'
 import { FC } from 'react'
 import styled from 'styled-components'
-import { answers } from './model'
+import { gameContainerModel } from '..'
 
 const Container = styled.div`
   display: flex;
@@ -20,8 +21,9 @@ const Answer = styled.div`
   border: solid 5px rgb(30, 135, 255);
   margin: 5px;
   color: white;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
+  transition: 0.25s background-color;
   cursor: pointer;
     :hover {
       background-color: #00ff15;
@@ -30,13 +32,18 @@ const Answer = styled.div`
 
 interface AnswersBoxProps {
   className?: string
+  answers: string[][]
+  questionNumber: number
 }
 
-export const AnswersBox: FC<AnswersBoxProps> = () => {
+export const AnswersBox: FC<AnswersBoxProps> = ({ answers, questionNumber }) => {
 
+  const answersShuffled = answers.length ? answers[questionNumber].sort() : [null]
+  const indexChanged = useUnit(gameContainerModel.events.questionNumberChanged)
+  console.log(questionNumber)
   return (
     <Container>
-      {answers.map((item, index) => <Answer key={index}>{item}</Answer>)}
+      {answersShuffled.map((item, index) => <Answer onClick={() => indexChanged(questionNumber + 1)} key={index}>{item}</Answer>)}
     </Container>
   )
 }
