@@ -14,8 +14,11 @@ const Container = styled.div`
 `
 const MessageScreen = styled.div`
   position: absolute;
-  top: -50vh;
-  left: 25vw;
+  top: -500px;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,6 +1,8 @@
 import { FC } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { money } from './model'
+import { useUnit } from 'effector-react'
+import { $questionNumber } from '../GameContainer/model'
 
 const Container = styled.div`
   color: white;
@@ -13,11 +15,7 @@ const Container = styled.div`
   flex-direction: column;
   padding: 5px;
 `
-const Step = styled.div`
-  height: 35px;
-  display: flex;
-  align-items: center;
-`
+
 const StepNumber = styled.p`
   margin-right: 5px;
   display: flex;
@@ -29,14 +27,30 @@ const StepNumber = styled.p`
   height: 30px;
 `
 
+const ActiveStep = styled.div<{ active: boolean }>`
+ height: 34px;
+ display: flex;
+ align-items: center;
+ width: 160px;
+ transition: 0.25s background-color;
+ border-radius: 15px;
+  ${(props) => props.active && css`
+    background-color: #00ff15;
+    height: 30px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  `};
+`
+
 interface ProgressProps {
   className?: string
 }
 
 export const Progress: FC<ProgressProps> = ({className}) => {
+  const activeStep = useUnit($questionNumber)
   return (
     <Container className={className} >
-      {money.map((index, item) => <Step key={index} className='gameStep'><StepNumber>{item + 1}</StepNumber><span>{index}</span></Step>).reverse()}
+      {money.map((index, item) => <ActiveStep active={activeStep === item} key={index} className='gameStep'><StepNumber>{item + 1}</StepNumber><span>{index}</span></ActiveStep>).reverse()}
     </Container>
   )
 }
