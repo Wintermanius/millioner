@@ -2,6 +2,9 @@ import { Help } from '../components/Help';
 import { Progress } from '../components/Progress';
 import { GameContainer } from '../components/GameContainer';
 import styled from 'styled-components';
+import { useUnit } from 'effector-react';
+import { $questionNumber, $questionsData, events } from './model';
+import { useEffect } from 'react';
 
 const GameScreen = styled.div`
   display: flex;
@@ -24,11 +27,23 @@ const GameContainerStyled = styled(GameContainer)`
 
 function App() {
   
+  const mountedChanged = useUnit(events.mountedChanged)
+  const questionNumber = useUnit($questionNumber)
+  const questionsData = useUnit($questionsData)
+
+  const questions = questionsData.map((item) => item.question)
+  const answers = questionsData.map((item) => [item.correct_answer, ...item.incorrect_answers])
+  const correctAnswer = questionsData.length ? questionsData[questionNumber].correct_answer : null
+
+  useEffect(() => {
+    mountedChanged(true)
+  })
+
   return (
     <GameScreen>
-      <HelpStyled />
+      <HelpStyled correctAnswer={correctAnswer} />
       <ProgressSyeled />
-      <GameContainerStyled />
+      <GameContainerStyled questionNumber={questionNumber} questions={questions} correctAnswer={correctAnswer} answers={answers} />
     </GameScreen>
   );
 }

@@ -4,6 +4,7 @@ import phoneDisactive from '../../../assets/images/phone-call_dis.png'
 import styled, { css } from 'styled-components';
 import { useUnit } from 'effector-react';
 import { $isUsedPhoneCall, phoneCallEvents } from './model';
+import { appModel } from '../../../app/model';
 
 const Button = styled.button<{ active: boolean }>`
   width: 100px;
@@ -43,7 +44,9 @@ interface PhoneCallProps {
 export const PhoneCall: FC<PhoneCallProps> = ({className}) => {
   const isUsedPhoneCall = useUnit($isUsedPhoneCall)
   const isUsedPhoneCallCanged = useUnit(phoneCallEvents.isUsedPhoneCallChanged)
+  const changeMessage = useUnit(appModel.events.changeMessage)
+  function isUsedPhone() {isUsedPhoneCallCanged(); changeMessage(true)}
   return (
-    <Button className={className} active={!isUsedPhoneCall} onClick={isUsedPhoneCallCanged}><Image src={!isUsedPhoneCall ? phoneActive : phoneDisactive} alt="" /></Button>
+    <Button className={className} active={!isUsedPhoneCall} onClick={isUsedPhone}><Image src={!isUsedPhoneCall ? phoneActive : phoneDisactive} alt="" /></Button>
   )
 }

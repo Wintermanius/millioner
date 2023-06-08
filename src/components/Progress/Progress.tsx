@@ -2,7 +2,7 @@ import { FC } from 'react'
 import styled, { css } from 'styled-components'
 import { money } from './model'
 import { useUnit } from 'effector-react'
-import { $questionNumber } from '../GameContainer/model'
+import { $questionNumber } from '../../app/model'
 
 const Container = styled.div`
   color: white;

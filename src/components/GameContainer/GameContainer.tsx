@@ -1,9 +1,9 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { QuestionBox } from './QuestionBox'
 import { AnswersBox } from './AnswersBox'
 import styled from 'styled-components'
 import { useUnit } from 'effector-react'
-import { $gameOver, $questionNumber, $questionsData, events } from './model'
+import { $gameOver } from '../../app/model'
 
 const Container = styled.div`
   display: flex;
@@ -35,33 +35,23 @@ const MessageScreen = styled.div`
 
 interface GameContainerProps {
   className?: string
+  questionNumber: number
+  questions: string[]
+  correctAnswer: string | null
+  answers: string[][]
 }
 
-export const GameContainer: FC<GameContainerProps> = ({className}) => {
-
-  const mountedChanged = useUnit(events.mountedChanged)
+export const GameContainer: FC<GameContainerProps> = ({className, questionNumber, questions, correctAnswer, answers}) => {
   
-  const questionNumber = useUnit($questionNumber)
-  const questionsData = useUnit($questionsData)
-
-  const questions = questionsData.map((item) => item.question)
-  const answers = questionsData.map((item) => [item.correct_answer, ...item.incorrect_answers])
-  const correctAnswer = questionsData.length ? questionsData[questionNumber].correct_answer : null
-
   const gameOver = useUnit($gameOver)
   
   let victory
-
   questionNumber > 9 ? victory = true : victory = false
 
-  useEffect(() => {
-    mountedChanged(true)
-  }, [])
-  
   return (
     <Container className={className}>
       {victory && <MessageScreen>YOU WIN</MessageScreen>}
-      {!gameOver &&  !victory && <>
+      {correctAnswer && !gameOver &&  !victory && <>
         <QuestionBox questionNumber={questionNumber} questions={questions} />
         <AnswersBox correctAnswer={correctAnswer} questionNumber={questionNumber} answers={answers} />
       </>}

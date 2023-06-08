@@ -1,8 +1,8 @@
 import { useUnit } from 'effector-react'
 import { FC } from 'react'
 import styled from 'styled-components'
-import { gameContainerModel } from '..'
 import { shuffle } from 'lodash'
+import { appModel } from '../../../app/model'
 
 const Container = styled.div`
   display: flex;
@@ -41,11 +41,13 @@ interface AnswersBoxProps {
 export const AnswersBox: FC<AnswersBoxProps> = ({ answers, questionNumber, correctAnswer }) => {
 
   const answersShuffled = answers.length ? shuffle(answers[questionNumber]) : [null]
+  const changeMessage = useUnit(appModel.events.changeMessage)
 
-  const indexChanged = useUnit(gameContainerModel.events.questionNumberChanged)
-  const handleCheckAnswer = (variant: string | null) => variant === correctAnswer ? indexChanged(questionNumber + 1) : gameOverChanged(true)
 
-  const gameOverChanged = useUnit(gameContainerModel.events.gameOverChanged)
+  const indexChanged = useUnit(appModel.events.questionNumberChanged)
+  const handleCheckAnswer = (variant: string | null) => variant === correctAnswer ? indexChanged(questionNumber + 1) && changeMessage(false) : gameOverChanged(true)
+
+  const gameOverChanged = useUnit(appModel.events.gameOverChanged)
   
   console.log(correctAnswer)
 
