@@ -38,7 +38,7 @@ interface GameContainerProps {
   questionNumber: number
   questions: string[]
   correctAnswer: string | null
-  answers: string[][]
+  answers: (string | number)[][]
 }
 
 export const GameContainer: FC<GameContainerProps> = ({className, questionNumber, questions, correctAnswer, answers}) => {

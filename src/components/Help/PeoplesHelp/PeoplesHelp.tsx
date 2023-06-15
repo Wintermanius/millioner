@@ -4,6 +4,7 @@ import peoplesActive from '../../../assets/images/group.png'
 import peoplesDisactive from '../../../assets/images/group_dis.png'
 import { useUnit } from 'effector-react'
 import { $isUsedPeoples, peoplesEvents } from './model'
+import { appModel } from '../../../app/model'
 
 const Button = styled.button<{ active: boolean }>`
   width: 100px;
@@ -42,9 +43,14 @@ interface PeoplesHelpProps {
 }
 
 export const PeoplesHelp: FC<PeoplesHelpProps> = ({ className }) => {
+
   const isUsedPeoples = useUnit($isUsedPeoples)
   const isUsedPeoplesChanged = useUnit(peoplesEvents.isUsedPeoplesChanged)
+  const changePeopleMessage = useUnit(appModel.events.changePeopleMessage)
+
+  function isUsedPeoplesHelp() {isUsedPeoplesChanged(); changePeopleMessage(true)}
+
   return (
-    <Button className={className} active={!isUsedPeoples} onClick={isUsedPeoplesChanged}><Image src={!isUsedPeoples ? peoplesActive : peoplesDisactive} alt="" /></Button>
+    <Button className={className} active={!isUsedPeoples} onClick={isUsedPeoplesHelp}><Image src={!isUsedPeoples ? peoplesActive : peoplesDisactive} alt="" /></Button>
   )
 }

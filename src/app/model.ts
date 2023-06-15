@@ -22,7 +22,10 @@ export const $questionNumber = createStore<number>(0).on(questionNumberChanged, 
 const gameOverChanged = createEvent<boolean>()
 export const $gameOver = createStore<boolean>(false).on(gameOverChanged, (_, value) => value)
 
-const changeMessage = createEvent<boolean>()
-export const $showMessage = createStore<boolean>(false).on(changeMessage, (_, value) => value)
+const changePhoneMessage = createEvent<boolean>()
+export const $showPhoneMessage = createStore<boolean>(false).on(changePhoneMessage, (_, value) => value)
 
-export const events = { mountedChanged, questionNumberChanged, gameOverChanged, changeMessage }
+const changePeopleMessage = createEvent<boolean>()
+export const $showPeopleMessage = createStore<boolean>(false).on(changePeopleMessage, (_, value) => value)
+
+export const events = { mountedChanged, questionNumberChanged, gameOverChanged, changePhoneMessage, changePeopleMessage }

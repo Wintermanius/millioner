@@ -2,7 +2,7 @@ import { useUnit } from 'effector-react'
 import { FC } from 'react'
 import styled from 'styled-components'
 import { shuffle } from 'lodash'
-import { appModel } from '../../../app/model'
+import { $showPeopleMessage, appModel } from '../../../app/model'
 
 const Container = styled.div`
   display: flex;
@@ -33,27 +33,31 @@ const Answer = styled.div`
 
 interface AnswersBoxProps {
   className?: string
-  answers: string[][]
+  answers: (string | number)[][]
   questionNumber: number
   correctAnswer: string | null
 }
 
 export const AnswersBox: FC<AnswersBoxProps> = ({ answers, questionNumber, correctAnswer }) => {
 
-  const answersShuffled = answers.length ? shuffle(answers[questionNumber]) : [null]
-  const changeMessage = useUnit(appModel.events.changeMessage)
-
-
+  const changePhoneMessage = useUnit(appModel.events.changePhoneMessage)
+  const changePeopleMessage = useUnit(appModel.events.changePeopleMessage)
   const indexChanged = useUnit(appModel.events.questionNumberChanged)
-  const handleCheckAnswer = (variant: string | null) => variant === correctAnswer ? indexChanged(questionNumber + 1) && changeMessage(false) : gameOverChanged(true)
-
   const gameOverChanged = useUnit(appModel.events.gameOverChanged)
-  
-  console.log(correctAnswer)
+
+  const handleCheckAnswer = (variant: string | null | number) => {
+    if(variant === correctAnswer) {
+      indexChanged(questionNumber + 1)
+      changePhoneMessage(false)
+      changePeopleMessage(false)
+    } else {
+      gameOverChanged(true)
+    }
+  }
 
   return (
     <Container>
-      { answersShuffled.map((item, index) => <Answer onClick={() => handleCheckAnswer(item)} key={index}>{item}</Answer>)}
+      {answers && answers.map((item, index) => <Answer onClick={() => handleCheckAnswer(item[0])} key={index}>{item[0]}</Answer>)}
     </Container>
   )
 }

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useUnit } from 'effector-react';
 import { $questionNumber, $questionsData, events } from './model';
 import { useEffect } from 'react';
+import { shuffle } from 'lodash';
 
 const GameScreen = styled.div`
   display: flex;
@@ -35,17 +36,44 @@ function App() {
   const answers = questionsData.map((item) => [item.correct_answer, ...item.incorrect_answers])
   const correctAnswer = questionsData.length ? questionsData[questionNumber].correct_answer : null
 
+  function getRandomScore(max: number) {
+    return Math.floor(Math.random() * max)
+  }
+
+  function getScore(a: number)  {
+    let result = a - getRandomScore(a)
+    return result
+  }
+  
+  function getPeoplesOpinion() {
+    let i = 100
+    let a = getScore(i)
+    i = i - a
+    let b = getScore(i)
+    i = i - b
+    let c = getScore(i)
+    i = i - c
+    return [a, b, c, i]
+  }
+  
+  let peoplesOpinion = getPeoplesOpinion()
+  
+  const answersWithPercents = answers[questionNumber]?.map((item, index) => [item, peoplesOpinion[index]])
+  const answersShuffled = shuffle(answersWithPercents)
+
+  console.log(correctAnswer)
+
   useEffect(() => {
     mountedChanged(true)
   })
 
   return (
     <GameScreen>
-      <HelpStyled correctAnswer={correctAnswer} />
+      <HelpStyled correctAnswer={correctAnswer} answers={answersShuffled} questionNumber={questionNumber}/>
       <ProgressSyeled />
-      <GameContainerStyled questionNumber={questionNumber} questions={questions} correctAnswer={correctAnswer} answers={answers} />
+      <GameContainerStyled questionNumber={questionNumber} questions={questions} correctAnswer={correctAnswer} answers={answersShuffled} />
     </GameScreen>
-  );
+  )
 }
 
 export default App;

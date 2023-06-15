@@ -42,10 +42,13 @@ interface PhoneCallProps {
 }
 
 export const PhoneCall: FC<PhoneCallProps> = ({className}) => {
+
   const isUsedPhoneCall = useUnit($isUsedPhoneCall)
   const isUsedPhoneCallCanged = useUnit(phoneCallEvents.isUsedPhoneCallChanged)
-  const changeMessage = useUnit(appModel.events.changeMessage)
-  function isUsedPhone() {isUsedPhoneCallCanged(); changeMessage(true)}
+  const changePhoneMessage = useUnit(appModel.events.changePhoneMessage)
+  
+  function isUsedPhone() {isUsedPhoneCallCanged(); changePhoneMessage(true)}
+
   return (
     <Button className={className} active={!isUsedPhoneCall} onClick={isUsedPhone}><Image src={!isUsedPhoneCall ? phoneActive : phoneDisactive} alt="" /></Button>
   )
