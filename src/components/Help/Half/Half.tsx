@@ -1,9 +1,9 @@
 import { useUnit } from 'effector-react'
 import { FC } from 'react'
 import styled, { css } from 'styled-components'
-import { $isUsedHalf, halfEvents } from './model'
+import { $disabled, $isUsedHalf, halfEvents } from './model'
 
-const Button = styled.button<{ active: boolean }>`
+const Button = styled.button<{ disabled: boolean }>`
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -21,7 +21,7 @@ const Button = styled.button<{ active: boolean }>`
       background-color: #00ff15;
     }
 
-  ${(props) => !props.active && css`
+  ${(props) => props.disabled && css`
     background-color: rgb(51, 51, 51);
     border: solid 5px rgb(110, 110, 110);
     color: rgb(139, 139, 139);
@@ -35,10 +35,10 @@ interface HalfProps {
 }
 
 export const Half: FC<HalfProps> = () => {
-  const isUsedHalf = useUnit($isUsedHalf)
+  const disabled = useUnit($disabled)
   const isUsedHalfChanged = useUnit(halfEvents.isUsedHalfChanged)
 
   return (
-    <Button active={!isUsedHalf} onClick={isUsedHalfChanged}>50/50</Button>
+    <Button disabled={disabled} onClick={isUsedHalfChanged}>50/50</Button>
   )
 }

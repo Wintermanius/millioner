@@ -56,12 +56,13 @@ function App() {
     return [a, b, c, i]
   }
   
-  let peoplesOpinion = getPeoplesOpinion()
-  
+  const peoplesOpinion = getPeoplesOpinion()
   const answersWithPercents = answers[questionNumber]?.map((item, index) => [item, peoplesOpinion[index]])
   const answersShuffled = shuffle(answersWithPercents)
 
-  console.log(correctAnswer)
+  const onChangeAnswers = () => {
+
+  }
 
   useEffect(() => {
     mountedChanged(true)
@@ -71,7 +72,7 @@ function App() {
     <GameScreen>
       <HelpStyled correctAnswer={correctAnswer} answers={answersShuffled} questionNumber={questionNumber}/>
       <ProgressSyeled />
-      <GameContainerStyled questionNumber={questionNumber} questions={questions} correctAnswer={correctAnswer} answers={answersShuffled} />
+      <GameContainerStyled questionNumber={questionNumber} questions={questions} correctAnswer={correctAnswer} answers={answersShuffled} onChangeAnswers={onChangeAnswers} />
     </GameScreen>
   )
 }
