@@ -1,7 +1,7 @@
 import { useUnit } from 'effector-react'
 import { FC } from 'react'
 import styled, { css } from 'styled-components'
-import { $disabled, $isUsedHalf, halfEvents } from './model'
+import { $disabled, halfEvents } from './model'
 
 const Button = styled.button<{ disabled: boolean }>`
   width: 100px;

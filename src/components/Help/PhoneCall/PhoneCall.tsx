@@ -3,10 +3,10 @@ import phoneActive from '../../../assets/images/phone-call.png';
 import phoneDisactive from '../../../assets/images/phone-call_dis.png'
 import styled, { css } from 'styled-components';
 import { useUnit } from 'effector-react';
-import { $isUsedPhoneCall, phoneCallEvents } from './model';
+import { $disabledPhone, $isUsedPhoneCall, phoneCallEvents } from './model';
 import { appModel } from '../../../app/model';
 
-const Button = styled.button<{ active: boolean }>`
+const Button = styled.button<{ disabled: boolean }>`
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -23,7 +23,7 @@ const Button = styled.button<{ active: boolean }>`
       background-color: #00ff15;
     }
 
-  ${(props) => !props.active && css`
+  ${(props) => props.disabled && css`
     background-color: rgb(51, 51, 51);
     border: solid 5px rgb(110, 110, 110);
     color: rgb(139, 139, 139);
@@ -42,7 +42,7 @@ interface PhoneCallProps {
 }
 
 export const PhoneCall: FC<PhoneCallProps> = ({className}) => {
-
+  const disabledPhone = useUnit($disabledPhone)
   const isUsedPhoneCall = useUnit($isUsedPhoneCall)
   const isUsedPhoneCallCanged = useUnit(phoneCallEvents.isUsedPhoneCallChanged)
   const changePhoneMessage = useUnit(appModel.events.changePhoneMessage)
@@ -50,6 +50,6 @@ export const PhoneCall: FC<PhoneCallProps> = ({className}) => {
   function isUsedPhone() {isUsedPhoneCallCanged(); changePhoneMessage(true)}
 
   return (
-    <Button className={className} active={!isUsedPhoneCall} onClick={isUsedPhone}><Image src={!isUsedPhoneCall ? phoneActive : phoneDisactive} alt="" /></Button>
+    <Button className={className} disabled={disabledPhone} onClick={isUsedPhone}><Image src={!disabledPhone ? phoneActive : phoneDisactive} alt="" /></Button>
   )
 }

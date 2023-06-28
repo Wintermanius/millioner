@@ -1,5 +1,5 @@
 import { useUnit } from 'effector-react'
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 import { $answers, appModel } from '../../../app/model'
 
@@ -13,6 +13,7 @@ const Container = styled.div`
 const Answer = styled.div`
   background-color: black;
   width: 45%;
+  min-height: 57px;
   max-width: 690px;
   padding: 10px;
   display: flex;
@@ -45,7 +46,7 @@ interface AnswersBoxProps {
   onChangeAnswers: (answers: string[]) => void
 }
 
-export const AnswersBox: FC<AnswersBoxProps> = ({ answers, questionNumber, correctAnswer, onChangeAnswers }) => {
+export const AnswersBox: FC<AnswersBoxProps> = ({ questionNumber, correctAnswer, onChangeAnswers }) => {
 
   const changePhoneMessage = useUnit(appModel.events.changePhoneMessage)
   const changePeopleMessage = useUnit(appModel.events.changePeopleMessage)
@@ -53,7 +54,6 @@ export const AnswersBox: FC<AnswersBoxProps> = ({ answers, questionNumber, corre
   const gameOverChanged = useUnit(appModel.events.gameOverChanged)
 
   const answers1 = useUnit($answers)
-
   const handleCheckAnswer = (variant: string | null | number) => {
     if(variant === correctAnswer) {
       indexChanged(questionNumber + 1)
@@ -66,7 +66,7 @@ export const AnswersBox: FC<AnswersBoxProps> = ({ answers, questionNumber, corre
 
   return (
     <Container>
-      {answers1 && answers1.map((item, index) => <Answer onClick={() => handleCheckAnswer(item[0])} key={index}>{item}</Answer>)}
+      {answers1 && answers1.map((item, index) => <Answer onClick={() => handleCheckAnswer(item)} key={index}>{item}</Answer>)}
     </Container>
   )
 }

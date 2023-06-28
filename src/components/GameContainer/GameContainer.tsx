@@ -43,20 +43,12 @@ interface GameContainerProps {
 }
 
 export const GameContainer: FC<GameContainerProps> = ({className, questionNumber, questions, correctAnswer, answers, onChangeAnswers}) => {
-  
-  const gameOver = useUnit($gameOver)
-  
-  let victory
-  questionNumber > 9 ? victory = true : victory = false
-
   return (
     <Container className={className}>
-      {victory && <MessageScreen>YOU WIN</MessageScreen>}
-      {correctAnswer && !gameOver &&  !victory && <>
+      {correctAnswer && <>
         <QuestionBox questionNumber={questionNumber} questions={questions} />
         <AnswersBox correctAnswer={correctAnswer} questionNumber={questionNumber} answers={answers} onChangeAnswers={onChangeAnswers} />
       </>}
-      {gameOver && <MessageScreen>GAME OVER</MessageScreen>}
     </Container>
   )
 }

@@ -16,6 +16,9 @@ export const $questionNumber = createStore<number>(0).on(questionNumberChanged, 
 const gameOverChanged = createEvent<boolean>()
 export const $gameOver = createStore<boolean>(false).on(gameOverChanged, (_, value) => value)
 
+const victoryChanged = createEvent<boolean>()
+export const $victory = createStore<boolean>(false).on(victoryChanged, (_, value) => value)
+
 const changePhoneMessage = createEvent<boolean>()
 export const $showPhoneMessage = createStore<boolean>(false).on(changePhoneMessage, (_, value) => value)
 
@@ -23,21 +26,7 @@ const changePeopleMessage = createEvent<boolean>()
 export const $showPeopleMessage = createStore<boolean>(false).on(changePeopleMessage, (_, value) => value)
 
 export const $questionsData = createStore<QuestionsData[]>([])
-  .on(fetchQuestionsFx.doneData, (_, questionsData) => questionsData)
-  // .on(incorrectAnswersChanged, (state, { incorrectAnswers }) => {
-  //   return state.map((question, index) => {
-  //     if (index === $questionNumber.getState()) {
-  //       return {
-  //         ...question,
-  //         incorrect_answers: incorrectAnswers
-  //       }
-  //     }
-
-  //     return question
-  //   })
-  // })
-
-// $questionsData.watch(e => console.log(e))
+.on(fetchQuestionsFx.doneData, (_, questionsData) => questionsData)
 
 export const $activeQuestion = combine($questionsData, $questionNumber, (data, index) => {
   return data[index]
@@ -47,7 +36,7 @@ export const $answers = createStore<string[]>([])
   .on($activeQuestion, (_, question) => shuffle([...question.incorrect_answers, question.correct_answer]))
   .on(answersChanged, (_, { answers }) => answers)
 
-export const events = { mountedChanged, questionNumberChanged, gameOverChanged, changePhoneMessage, changePeopleMessage, answersChanged }
+export const events = { mountedChanged, questionNumberChanged, gameOverChanged, changePhoneMessage, changePeopleMessage, answersChanged, victoryChanged }
 
 sample({
   clock: $mounted,

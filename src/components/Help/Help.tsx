@@ -4,7 +4,7 @@ import { PhoneCall } from './PhoneCall'
 import { PeoplesHelp } from './PeoplesHelp'
 import styled from 'styled-components'
 import { useUnit } from 'effector-react'
-import { $showPeopleMessage, $showPhoneMessage } from '../../app/model'
+import { $answers, $showPeopleMessage, $showPhoneMessage } from '../../app/model'
 
 const HelpContainer = styled.div`
   display: flex;
@@ -53,7 +53,7 @@ export const Help: FC<HelpProps> = ({ className, correctAnswer, answers, questio
   const showPhoneMessage = useUnit($showPhoneMessage)
   const showPeopleMessage = useUnit($showPeopleMessage)
 
-  const peoplesRating = answers?.map((item, index) => <div key={index}>{item[0]} --- {item[1]}%</div>)
+  const peoplesRating = answers.map((item, index) => <div key={index}>{item[0]} --- {item[1]}%</div>)
 
   return (
     <HelpContainer className={className}>
@@ -64,5 +64,4 @@ export const Help: FC<HelpProps> = ({ className, correctAnswer, answers, questio
       {showPeopleMessage && <MessageScreen>{peoplesRating}</MessageScreen>}
     </HelpContainer>
   )
-    
 }
